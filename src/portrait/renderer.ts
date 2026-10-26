@@ -12,6 +12,8 @@ export type PortraitOptions = {
   characterSize: number
 }
 
+const referencePortraitWidth = 540
+
 export function createPortraitRenderer(
   canvas: HTMLCanvasElement,
   source: PortraitSource,
@@ -54,7 +56,7 @@ export function createPortraitRenderer(
 
   function resize() {
     const bounds = canvas.getBoundingClientRect()
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 3)
     const nextKey = `${bounds.width}:${bounds.height}:${pixelRatio}:${options.characterSize}`
     if (bounds.width < 1 || bounds.height < 1 || sizeKey === nextKey) {
       return
@@ -65,7 +67,8 @@ export function createPortraitRenderer(
       (bounds.width - 20) / source.aspectRatio / 1.12,
     )
     const portraitWidth = portraitHeight * source.aspectRatio
-    const columns = Math.max(50, Math.round(portraitWidth / options.characterSize))
+    // Scale characters with the portrait so smaller screens retain the same facial detail.
+    const columns = Math.max(50, Math.round(referencePortraitWidth / options.characterSize))
     const grid = createPortraitGrid(source, columns)
     layout = {
       width: bounds.width,

@@ -96,7 +96,7 @@ function App() {
               value={characterSize}
               style={sliderStyle}
               aria-label="문자 크기"
-              aria-valuetext={`${characterSize} 픽셀`}
+              aria-valuetext={`${characterSize}, 작을수록 촘촘함`}
               onChange={(event) => setCharacterSize(Number(event.target.value))}
             />
           </label>
