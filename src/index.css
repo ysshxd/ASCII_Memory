@@ -1,0 +1,59 @@
+:root {
+  font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+  color: #d4d6d4;
+  background: #06080b;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #90c7c2;
+  outline-offset: 5px;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+p,
+h1 {
+  margin: 0;
+}
+
+::selection {
+  color: #e5eeeb;
+  background: #28524f;
+}
