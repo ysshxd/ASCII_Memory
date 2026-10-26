@@ -7,7 +7,7 @@ ASCII 문자로 바꾸고, 눈 깜빡임과 앞머리의 움직임, 마우스에
 
 [작품 열기 ↗](https://asciimemory.vercel.app/)
 
-![눈 깜빡임과 머리카락 움직임을 담은 ASCII_Memory](docs/images/motion.gif)
+![눈 깜빡임과 머리카락 움직임을 담은 ASCII_Memory](docs/images/motion-transparent.gif)
 
 Canvas의 투명 배경을 유지한 반복 GIF입니다. 마우스 반응과 화면 조절은 위 배포 링크에서 확인할 수 있습니다.
 
