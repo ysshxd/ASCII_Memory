@@ -107,145 +107,143 @@
 .controls {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 10px 14px;
-  border: 1px solid #b9d6cd25;
-  border-radius: 18px;
-  background: linear-gradient(180deg, #202b2de8, #121b1ee8 46%, #0e171be8);
-  box-shadow: 0 12px 32px #0005, inset 0 1px #eafff013, inset 0 -1px #0005;
-  backdrop-filter: blur(24px);
+  gap: 8px;
+  padding: 6px 8px;
+  border: 1px solid #ffffff16;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #18181aeb, #0c0c0eeb);
+  box-shadow: 0 8px 28px #0006, inset 0 1px #ffffff08;
+  backdrop-filter: blur(20px);
 }
 
 .controls button {
   display: inline-flex;
-  min-height: 40px;
+  min-height: 32px;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 0 12px;
+  gap: 7px;
+  padding: 0 10px;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 7px;
   background: transparent;
-  color: #b8c4c3;
-  font-size: 12px;
+  color: #96969e;
+  font-size: 11px;
   font-weight: 500;
   white-space: nowrap;
-  transition: color 160ms, background 160ms, border-color 160ms, box-shadow 160ms;
+  transition: color 160ms, background 160ms, border-color 160ms;
 }
 
 .controls button:hover {
-  border-color: #d6e7df15;
-  background: #c8e2d40a;
-  color: #f1f7f4;
+  background: #ffffff09;
+  color: #f4f4f5;
 }
 
 .controls button:active {
-  background: #050c104d;
-  box-shadow: inset 0 1px 4px #0004;
+  background: #0005;
 }
 
 .controls .play-button {
-  min-width: 100px;
-  border-color: #bddfcb30;
-  background: linear-gradient(180deg, #354c44, #253c35);
-  box-shadow: inset 0 1px #e2ffeb13, 0 2px 5px #0002;
-  color: #e0f1e6;
+  min-width: 82px;
+  border-color: #ffffff15;
+  background: linear-gradient(180deg, #29292d, #202023);
+  box-shadow: inset 0 1px #ffffff07;
+  color: #ededf0;
 }
 
 .controls .play-button:hover {
-  border-color: #ccebd650;
-  background: linear-gradient(180deg, #3d574c, #2c443a);
+  border-color: #ffffff26;
+  background: #303034;
 }
 
 .pause-icon {
-  width: 10px;
-  height: 11px;
-  border-right: 3px solid currentColor;
-  border-left: 3px solid currentColor;
-  border-radius: 1px;
+  width: 8px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-left: 2px solid currentColor;
 }
 
 .play-icon {
   width: 0;
   height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 8px solid currentColor;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid currentColor;
+}
+
+.controls .replay-button {
+  width: 30px;
+  padding: 0;
 }
 
 .replay-button svg {
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
   stroke: currentColor;
-  stroke-width: 1.5;
+  stroke-width: 1.4;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .control-divider {
   width: 1px;
-  height: 25px;
+  height: 14px;
   flex-shrink: 0;
-  background: linear-gradient(transparent, #b6d1c526, transparent);
+  background: #ffffff0e;
 }
 
 .color-options {
   display: flex;
-  gap: 3px;
-  padding: 3px;
-  border: 1px solid #afcdc514;
-  border-radius: 12px;
-  background: #050b0f55;
-  box-shadow: inset 0 1px 4px #0003;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid #ffffff08;
+  border-radius: 8px;
+  background: #0003;
 }
 
 .color-options button {
-  min-width: 49px;
-  min-height: 34px;
-  padding: 0 10px;
-  border-radius: 8px;
+  min-width: 37px;
+  min-height: 26px;
+  padding: 0 8px;
+  border-radius: 5px;
+  font-size: 10px;
 }
 
 .color-options button[aria-pressed='true'] {
-  border-color: #b7d6c629;
-  background: linear-gradient(180deg, #3b4946, #2b3936);
-  box-shadow: inset 0 1px #eefff00d, 0 1px 4px #0003;
-  color: #e1f0e7;
+  border-color: #ffffff13;
+  background: #2a2a2e;
+  box-shadow: inset 0 1px #ffffff06;
+  color: #f2f2f4;
 }
 
 .size-control {
-  display: grid;
-  width: 158px;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  width: 146px;
   align-items: center;
-  column-gap: 12px;
-  color: #a8b9b7;
-  font-size: 11px;
+  gap: 10px;
+  padding: 0 5px;
+  color: #797982;
+  font-size: 10px;
 }
 
 .size-label {
-  letter-spacing: 0.02em;
+  flex-shrink: 0;
 }
 
 .size-control output {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  color: #e1ece7;
-  font: 12px Consolas, monospace;
-  font-variant-numeric: tabular-nums;
-}
-
-.size-control output span {
-  color: #728d86;
+  width: 22px;
+  flex-shrink: 0;
+  order: 2;
+  color: #b8b8c0;
   font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .size-control input {
   width: 100%;
-  height: 26px;
-  grid-column: 1 / -1;
-  margin: 1px 0 -3px;
+  min-width: 0;
+  height: 30px;
+  margin: 0;
   appearance: none;
   background: transparent;
   cursor: pointer;
@@ -253,59 +251,62 @@
 }
 
 .size-control input::-webkit-slider-runnable-track {
-  height: 5px;
-  border-radius: 8px;
-  background: linear-gradient(to right, #91b7a5 0%, #91b7a5 var(--range-progress),
-    #080f13 var(--range-progress), #080f13 100%);
-  box-shadow: inset 0 1px 2px #0009, 0 1px #d9eee514;
+  height: 3px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #c4c4cc 0%, #c4c4cc var(--range-progress),
+    #303035 var(--range-progress), #303035 100%);
+  box-shadow: 0 1px #0007;
 }
 
 .size-control input::-moz-range-track {
-  height: 5px;
-  border-radius: 8px;
-  background: #080f13;
-  box-shadow: inset 0 1px 2px #0009, 0 1px #d9eee514;
+  height: 3px;
+  border-radius: 4px;
+  background: #303035;
+  box-shadow: 0 1px #0007;
 }
 
 .size-control input::-moz-range-progress {
-  height: 5px;
-  border-radius: 8px;
-  background: #91b7a5;
+  height: 3px;
+  border-radius: 4px;
+  background: #c4c4cc;
 }
 
 .size-control input::-webkit-slider-thumb {
-  width: 16px;
-  height: 16px;
-  margin-top: -5.5px;
+  width: 10px;
+  height: 10px;
+  margin-top: -3.5px;
   appearance: none;
-  border: 1px solid #cde5d5;
+  border: 1px solid #e9e9ef;
   border-radius: 50%;
-  background: radial-gradient(circle at 40% 30%, #e1f0e6, #9fbfaf 75%);
-  box-shadow: 0 1px 4px #0008, 0 0 0 3px #b4dbbe0b;
+  background: #d4d4dc;
+  box-shadow: 0 1px 4px #0009;
 }
 
 .size-control input::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border: 1px solid #cde5d5;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #e9e9ef;
   border-radius: 50%;
-  background: radial-gradient(circle at 40% 30%, #e1f0e6, #9fbfaf 75%);
-  box-shadow: 0 1px 4px #0008, 0 0 0 3px #b4dbbe0b;
+  background: #d4d4dc;
+  box-shadow: 0 1px 4px #0009;
 }
 
-.size-control input:hover::-webkit-slider-thumb,
-.size-control input:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 1px 4px #0008, 0 0 0 4px #b4dbbe20;
+.size-control input:hover::-webkit-slider-thumb {
+  box-shadow: 0 1px 4px #0009, 0 0 0 3px #ffffff0c;
 }
 
-.size-control input:hover::-moz-range-thumb,
-.size-control input:focus-visible::-moz-range-thumb {
-  box-shadow: 0 1px 4px #0008, 0 0 0 4px #b4dbbe20;
+.size-control input:hover::-moz-range-thumb {
+  box-shadow: 0 1px 4px #0009, 0 0 0 3px #ffffff0c;
+}
+
+.controls :focus-visible {
+  outline: 1px solid #bcbcc8;
+  outline-offset: 3px;
 }
 
 @media (max-width: 640px) {
   .gallery {
-    grid-template-rows: 54px minmax(280px, 1fr) 156px;
+    grid-template-rows: 54px minmax(280px, 1fr) 78px;
     padding: 0 16px;
   }
 
@@ -316,42 +317,33 @@
   }
 
   .controls {
-    display: grid;
-    width: min(100%, 390px);
-    grid-template-columns: auto auto 1fr;
-    gap: 8px 5px;
-    padding: 10px;
-    border-radius: 18px;
+    gap: 6px;
+    padding: 5px 7px;
   }
 
   .controls button {
-    min-height: 44px;
-    padding: 0 8px;
+    min-height: 34px;
   }
 
   .controls .play-button {
-    min-width: 90px;
+    min-width: 32px;
+    padding: 0 10px;
   }
 
-  .color-options {
-    justify-self: end;
-  }
-
-  .color-options button {
-    min-width: 42px;
-    min-height: 36px;
-    padding: 0 7px;
-  }
-
-  .control-divider {
+  .play-label,
+  .size-label {
     display: none;
   }
 
+  .color-options button {
+    min-height: 26px;
+    padding: 0 7px;
+  }
+
   .size-control {
-    width: 100%;
-    grid-column: 1 / -1;
-    padding: 6px 8px 0;
-    border-top: 1px solid #c3ddd415;
+    width: 93px;
+    gap: 8px;
+    padding: 0 3px;
   }
 }
 

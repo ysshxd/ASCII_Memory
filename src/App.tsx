@@ -48,14 +48,19 @@ function App() {
             aria-label={isPlaying ? '일시정지' : '재생'}
           >
             <span className={isPlaying ? 'pause-icon' : 'play-icon'} aria-hidden="true" />
-            {isPlaying ? '일시정지' : '재생'}
+            <span className="play-label">{isPlaying ? '일시정지' : '재생'}</span>
           </button>
 
-          <button type="button" className="replay-button" onClick={handleReplay}>
+          <button
+            type="button"
+            className="replay-button"
+            aria-label="다시 보기"
+            title="다시 보기"
+            onClick={handleReplay}
+          >
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path d="M4 7a6.5 6.5 0 1 1-.1 5M4 3v4h4" />
             </svg>
-            다시 보기
           </button>
 
           <span className="control-divider" aria-hidden="true" />
@@ -80,8 +85,8 @@ function App() {
           <span className="control-divider size-divider" aria-hidden="true" />
 
           <label className="size-control" htmlFor="character-size">
-            <span className="size-label">문자 크기</span>
-            <output htmlFor="character-size">{characterSize.toFixed(1)}<span>px</span></output>
+            <span className="size-label">크기</span>
+            <output htmlFor="character-size">{characterSize.toFixed(1)}</output>
             <input
               id="character-size"
               type="range"
@@ -90,6 +95,7 @@ function App() {
               step="0.5"
               value={characterSize}
               style={sliderStyle}
+              aria-label="문자 크기"
               aria-valuetext={`${characterSize} 픽셀`}
               onChange={(event) => setCharacterSize(Number(event.target.value))}
             />

@@ -31,7 +31,8 @@ void main() {
   float scale = uPortraitSize.x / 500.0;
   float seed = aMotion.z;
   float scatter = aMotion.w;
-  float isWisp = aEffects.y;
+  float isWisp = step(0.5, aEffects.y);
+  float isUnderlay = 1.0 - step(-0.5, aEffects.y);
   vec2 position = uOrigin + aPosition * uPortraitSize;
 
   float distanceFromFace = length((aPosition - vec2(0.5, 0.48)) * vec2(1.2, 0.8));
@@ -45,11 +46,13 @@ void main() {
   float phase = aPosition.x * 38.0 + aPosition.y * 16.0;
   float hair = aMotion.x * wind * scale;
   float fringe = aMotion.y * wind * scale;
-  position.x += hair * (sin(uTime * 0.85 + aPosition.y * 9.0) * 3.8
+  vec2 hairOffset;
+  hairOffset.x = hair * (sin(uTime * 0.85 + aPosition.y * 9.0) * 3.8
     + sin(uTime * 1.4 + aPosition.x * 7.0) * 1.1);
-  position.x += fringe * (sin(uTime * 1.6 + phase) * 6.0 + sin(uTime * 0.7) * 2.0);
-  position.y += hair * sin(uTime * 0.95 + aPosition.x * 11.0) * 1.3
+  hairOffset.x += fringe * (sin(uTime * 1.6 + phase) * 6.0 + sin(uTime * 0.7) * 2.0);
+  hairOffset.y = hair * sin(uTime * 0.95 + aPosition.x * 11.0) * 1.3
     + fringe * sin(uTime * 1.3 + phase) * 2.5;
+  position += hairOffset * (1.0 - isUnderlay);
 
   float wispPhase = seed * 6.2831853;
   position += vec2(sin(uTime * 0.55 + wispPhase) * 7.0,
@@ -77,6 +80,7 @@ void main() {
   float wispReveal = smoothstep(0.4, 1.0, progress);
   float shimmer = 0.78 + sin(uTime * 0.7 * uMotion + wispPhase) * 0.22;
   vOpacity = aAppearance.x * mix(reveal, wispReveal * shimmer, isWisp);
+  vOpacity *= mix(1.0, smoothstep(0.5, 3.0, length(hairOffset)), isUnderlay);
   vUv = aCorner + 0.5;
   vec2 clip = (position + aCorner * uQuadSize) / uResolution * 2.0 - 1.0;
   gl_Position = vec4(clip.x, -clip.y, 0.0, 1.0);

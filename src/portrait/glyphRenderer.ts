@@ -16,7 +16,7 @@ export type PortraitLayout = {
 
 type GlyphFrame = {
   time: number
-  isMonochrome: boolean
+  monochromeMix: number
   hasMotion: boolean
   pointerX: number
   pointerY: number
@@ -166,7 +166,7 @@ export function createGlyphRenderer(canvas: HTMLCanvasElement) {
           ...glyph.color, ...glyph.closedColor,
           glyph.opacity, glyph.glyphIndex, glyph.closedGlyphIndex, glyph.eyeIndex,
           glyph.hairWeight, glyph.fringeWeight, glyph.seed, glyph.scatter,
-          glyph.eyeFeather, Number(glyph.isWisp), glyph.eyeThreshold,
+          glyph.eyeFeather, glyph.isUnderlay ? -1 : Number(glyph.isWisp), glyph.eyeThreshold,
         ], index * floatsPerGlyph)
       }
 
@@ -180,7 +180,7 @@ export function createGlyphRenderer(canvas: HTMLCanvasElement) {
       gl.clearColor(0, 0, 0, 0)
       gl.clear(gl.COLOR_BUFFER_BIT)
       gl.uniform1f(uniforms.uTime, frame.time / 1000)
-      gl.uniform1f(uniforms.uMonochrome, Number(frame.isMonochrome))
+      gl.uniform1f(uniforms.uMonochrome, frame.monochromeMix)
       gl.uniform1f(uniforms.uMotion, Number(frame.hasMotion))
       gl.uniform2f(uniforms.uPointer, frame.pointerX, frame.pointerY)
       gl.uniform1f(uniforms.uPointerStrength, frame.pointerStrength)

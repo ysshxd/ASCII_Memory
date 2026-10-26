@@ -36,3 +36,7 @@ public/favicon.svg
 private-assets/
 prepare-glyphs.html
 portrait-capture.html
+
+# Team-only development notes
+AGENTS.md
+docs/*.md

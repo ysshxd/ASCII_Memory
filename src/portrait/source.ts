@@ -16,6 +16,7 @@ export type PortraitGlyph = {
   seed: number
   scatter: number
   isWisp: boolean
+  isUnderlay?: boolean
 }
 
 export type PortraitSource = {
@@ -116,5 +117,62 @@ export function createPortraitGrid(source: PortraitSource, requestedColumns: num
     }
   }
 
-  return { glyphs, columns, rows }
+  return { glyphs: [...createForeheadUnderlay(glyphs, columns), ...glyphs], columns, rows }
+}
+
+function createForeheadUnderlay(glyphs: PortraitGlyph[], columns: number) {
+  const skinByColumn = new Map<number, PortraitGlyph>()
+
+  for (const glyph of glyphs) {
+    const [red, green, blue] = glyph.color
+    if (
+      glyph.isWisp || glyph.y < 0.35 || glyph.y > 0.5 ||
+      glyph.hairWeight > 0.05 || red < 0.5 || red - green < 0.09 || red - blue < 0.12
+    ) {
+      continue
+    }
+    const column = Math.floor(glyph.x * columns)
+    const existing = skinByColumn.get(column)
+    if (!existing || glyph.y < existing.y) {
+      skinByColumn.set(column, glyph)
+    }
+  }
+
+  const underlay: PortraitGlyph[] = []
+  for (const glyph of glyphs) {
+    if (
+      glyph.isWisp || glyph.fringeWeight < 0.08 || glyph.y < 0.32 || glyph.y > 0.46 ||
+      glyph.x < 0.2 || glyph.x > 0.8
+    ) {
+      continue
+    }
+
+    const column = Math.floor(glyph.x * columns)
+    let skin = skinByColumn.get(column)
+    for (let distance = 1; !skin && distance <= Math.ceil(columns * 0.05); distance += 1) {
+      skin = skinByColumn.get(column - distance) ?? skinByColumn.get(column + distance)
+    }
+    if (!skin) {
+      continue
+    }
+
+    const depth = Math.max(0, skin.y - glyph.y)
+    const feather = Math.max(0, 1 - depth / 0.065) ** 2
+    if (feather === 0) {
+      continue
+    }
+    underlay.push({
+      ...glyph,
+      color: skin.color,
+      closedColor: skin.color,
+      glyphIndex: skin.glyphIndex,
+      closedGlyphIndex: skin.glyphIndex,
+      opacity: glyph.opacity * feather * 0.6,
+      eyeIndex: -1,
+      eyeFeather: 0,
+      isUnderlay: true,
+    })
+  }
+
+  return underlay
 }

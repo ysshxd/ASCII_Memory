@@ -23,6 +23,7 @@ export function createPortraitRenderer(
     x: 0, y: 0, targetX: 0, targetY: 0, strength: 0, isActive: false,
   }
   let options = initialOptions
+  let monochromeMix = Number(options.isMonochrome)
   let layout: PortraitLayout
   let sizeKey = ''
   let elapsed = reducedMotion.matches ? 2800 : 0
@@ -36,7 +37,7 @@ export function createPortraitRenderer(
     }
     gpu.draw({
       time: elapsed,
-      isMonochrome: options.isMonochrome,
+      monochromeMix,
       hasMotion: !reducedMotion.matches,
       pointerX: pointer.x,
       pointerY: pointer.y,
@@ -85,20 +86,32 @@ export function createPortraitRenderer(
 
   function animate(time: number) {
     animationFrame = 0
-    if (isDisposed || !options.isPlaying || document.hidden || reducedMotion.matches) {
+    if (isDisposed || document.hidden) {
       return
     }
 
     const delta = previousTime ? Math.min((time - previousTime) / 1000, 0.05) : 0
     previousTime = time
-    elapsed += delta * 1000
-    updatePointer(pointer, delta)
+    const hasMotion = options.isPlaying && !reducedMotion.matches
+    if (hasMotion) {
+      elapsed += delta * 1000
+      updatePointer(pointer, delta)
+    }
+    const target = Number(options.isMonochrome)
+    monochromeMix += (target - monochromeMix) * (1 - Math.exp(-10 * delta))
+    if (Math.abs(target - monochromeMix) < 0.001) {
+      monochromeMix = target
+    }
     paint()
-    animationFrame = requestAnimationFrame(animate)
+    if (hasMotion || monochromeMix !== target) {
+      animationFrame = requestAnimationFrame(animate)
+    }
   }
 
   function startAnimation() {
-    if (!animationFrame && options.isPlaying && !document.hidden && !reducedMotion.matches) {
+    const hasMotion = options.isPlaying && !reducedMotion.matches
+    const hasColorTransition = monochromeMix !== Number(options.isMonochrome)
+    if (!animationFrame && !document.hidden && (hasMotion || hasColorTransition)) {
       previousTime = 0
       animationFrame = requestAnimationFrame(animate)
     }
@@ -122,6 +135,7 @@ export function createPortraitRenderer(
     stopAnimation()
     if (reducedMotion.matches) {
       elapsed = 2800
+      monochromeMix = Number(options.isMonochrome)
       resetPointer()
       paint()
     } else {
@@ -163,6 +177,9 @@ export function createPortraitRenderer(
     update(nextOptions: PortraitOptions) {
       const hasSizeChanged = options.characterSize !== nextOptions.characterSize
       options = nextOptions
+      if (reducedMotion.matches) {
+        monochromeMix = Number(options.isMonochrome)
+      }
       if (hasSizeChanged) {
         resize()
       }
